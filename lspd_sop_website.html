@@ -1,0 +1,648 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .sop-wrap {
+    font-family: 'Barlow', sans-serif;
+    background: #0a0e1a;
+    min-height: 600px;
+    color: #e8eaf0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .sop-header {
+    background: #0d1120;
+    border-bottom: 2px solid #c9a84c;
+    padding: 20px 28px 0;
+  }
+
+  .sop-header-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .badge-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .dept-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: #c9a84c;
+    line-height: 1;
+  }
+
+  .dept-sub {
+    font-size: 11px;
+    color: #8892a4;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .version-badge {
+    margin-left: auto;
+    font-size: 11px;
+    color: #8892a4;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #8892a4;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 10px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { color: #c9a84c; }
+  .tab-btn.active { color: #c9a84c; border-bottom-color: #c9a84c; }
+
+  .sop-body {
+    padding: 28px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: #c9a84c;
+    margin-bottom: 6px;
+  }
+
+  .section-divider {
+    width: 48px;
+    height: 2px;
+    background: #c9a84c;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    background: #131828;
+    border: 0.5px solid #2a3050;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: #c9a84c;
+    border-radius: 2px;
+  }
+
+  .rank-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid #1e2540;
+  }
+  .rank-row:last-child { border-bottom: none; }
+
+  .rank-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #c9a84c;
+    opacity: 0.5;
+    line-height: 1;
+    min-width: 24px;
+  }
+
+  .rank-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #e8eaf0;
+    margin-bottom: 2px;
+  }
+
+  .rank-desc {
+    font-size: 13px;
+    color: #8892a4;
+    line-height: 1.5;
+  }
+
+  .strike-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid #1e2540;
+  }
+  .strike-row:last-child { border-bottom: none; }
+
+  .strike-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .s1 { background: #1a2a10; color: #7ec850; }
+  .s2 { background: #2a1f08; color: #e9a030; }
+  .s3 { background: #2a0f0f; color: #e04a4a; }
+
+  .strike-label { font-size: 13px; color: #8892a4; }
+  .strike-result { font-weight: 600; font-size: 14px; }
+  .sr1 { color: #7ec850; }
+  .sr2 { color: #e9a030; }
+  .sr3 { color: #e04a4a; }
+
+  .code-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .code-card {
+    background: #0d1120;
+    border: 0.5px solid #2a3050;
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .code-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: #c9a84c;
+    line-height: 1;
+  }
+
+  .code-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e8eaf0;
+    margin: 4px 0 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .code-desc {
+    font-size: 12px;
+    color: #8892a4;
+    line-height: 1.4;
+  }
+
+  .uof-step {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid #1e2540;
+    align-items: flex-start;
+  }
+  .uof-step:last-child { border-bottom: none; }
+
+  .uof-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    background: #1a1f35;
+    border: 0.5px solid #c9a84c44;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #c9a84c;
+    flex-shrink: 0;
+  }
+
+  .uof-title { font-weight: 600; font-size: 14px; color: #e8eaf0; margin-bottom: 2px; }
+  .uof-desc { font-size: 13px; color: #8892a4; line-height: 1.5; }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-right: 6px;
+  }
+  .pill-gold { background: #2a2010; color: #c9a84c; border: 0.5px solid #c9a84c55; }
+  .pill-blue { background: #0f1e30; color: #5ba3e0; border: 0.5px solid #5ba3e055; }
+  .pill-red  { background: #2a0f0f; color: #e04a4a; border: 0.5px solid #e04a4a55; }
+
+  .info-list { list-style: none; }
+  .info-list li {
+    font-size: 13px;
+    color: #c0c8d8;
+    padding: 7px 0;
+    border-bottom: 0.5px solid #1e2540;
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+  }
+  .info-list li:last-child { border-bottom: none; }
+  .info-list li::before {
+    content: '›';
+    color: #c9a84c;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: -1px;
+  }
+
+  .amend-row {
+    display: flex;
+    gap: 14px;
+    padding: 8px 0;
+    border-bottom: 0.5px solid #1e2540;
+    align-items: baseline;
+  }
+  .amend-row:last-child { border-bottom: none; }
+  .amend-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: #c9a84c;
+    min-width: 28px;
+  }
+  .amend-text { font-size: 13px; color: #c0c8d8; line-height: 1.5; }
+
+  .subdiv-card {
+    background: #131828;
+    border: 0.5px solid #2a3050;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .subdiv-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .subdiv-name { font-weight: 600; font-size: 14px; color: #c9a84c; margin-bottom: 3px; }
+  .subdiv-desc { font-size: 13px; color: #8892a4; line-height: 1.5; }
+
+  .fc-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid #1e2540;
+  }
+  .fc-row:last-child { border-bottom: none; }
+  .fc-class {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #c9a84c;
+    min-width: 36px;
+  }
+  .fc-name { font-weight: 600; font-size: 14px; color: #e8eaf0; }
+  .fc-note { font-size: 12px; color: #8892a4; margin-top: 2px; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 520px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+
+<div class="sop-wrap">
+  <div class="sop-header">
+    <div class="sop-header-top">
+      <svg class="badge-icon" viewBox="0 0 44 44" fill="none">
+        <polygon points="22,3 27,15 40,15 30,23 34,36 22,28 10,36 14,23 4,15 17,15" fill="#c9a84c" opacity="0.15"/>
+        <polygon points="22,3 27,15 40,15 30,23 34,36 22,28 10,36 14,23 4,15 17,15" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <text x="22" y="26" text-anchor="middle" font-size="10" fill="#c9a84c" font-family="Bebas Neue,sans-serif" letter-spacing="0.5">LSPD</text>
+      </svg>
+      <div>
+        <div class="dept-title">Los Santos Police Dept.</div>
+        <div class="dept-sub">Standard Operating Procedures</div>
+      </div>
+      <div class="version-badge">v1.1<br>05/01/2026</div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showTab(0)">Chain of Command</button>
+      <button class="tab-btn" onclick="showTab(1)">Disciplinary</button>
+      <button class="tab-btn" onclick="showTab(2)">Promotions</button>
+      <button class="tab-btn" onclick="showTab(3)">Operations</button>
+      <button class="tab-btn" onclick="showTab(4)">Special Situations</button>
+      <button class="tab-btn" onclick="showTab(5)">Patrol & Codes</button>
+      <button class="tab-btn" onclick="showTab(6)">Legal</button>
+      <button class="tab-btn" onclick="showTab(7)">Conduct</button>
+      <button class="tab-btn" onclick="showTab(8)">Subdivisions</button>
+      <button class="tab-btn" onclick="showTab(9)">Appendices</button>
+    </div>
+  </div>
+
+  <div class="sop-body">
+
+    <!-- 0: Chain of Command -->
+    <div class="section active">
+      <div class="section-title">Chain of Command</div>
+      <div class="section-divider"></div>
+      <div class="card">
+        <div class="card-title">Department Hierarchy</div>
+        <div class="rank-row"><div class="rank-num">1</div><div><div class="rank-name">Commissioner</div><div class="rank-desc">Top-level leadership. Responsible for promotions, SOP compliance, paperwork, and training organization.</div></div></div>
+        <div class="rank-row"><div class="rank-num">2</div><div><div class="rank-name">High Command (HC)</div><div class="rank-desc">Second-in-command. Handles high-priority situations, complaints, strikes, SOP violations, and promotion recommendations.</div></div></div>
+        <div class="rank-row"><div class="rank-num">3</div><div><div class="rank-name">Supervisor Team</div><div class="rank-desc">Third-in-command. Responds to all supervisor calls and manages on-scene supervision.</div></div></div>
+        <div class="rank-row"><div class="rank-num">4</div><div><div class="rank-name">FTO — Field Training Officer</div><div class="rank-desc">Conducts all training for new recruits.</div></div></div>
+        <div class="rank-row"><div class="rank-num">5</div><div><div class="rank-name">FTA — Field Training Assistant</div><div class="rank-desc">Starting FTO officer; assists when there is a shortage of available FTOs.</div></div></div>
+        <div class="rank-row"><div class="rank-num">6</div><div><div class="rank-name">Public Safety Officer</div><div class="rank-desc">Standard officers who enforce SOP and departmental rules.</div></div></div>
+      </div>
+    </div>
+
+    <!-- 1: Disciplinary -->
+    <div class="section">
+      <div class="section-title">Disciplinary Actions</div>
+      <div class="section-divider"></div>
+      <div class="card">
+        <div class="card-title">Strike System</div>
+        <div class="strike-row"><div class="strike-num s1">1</div><div><div class="strike-label">First Strike</div><div class="strike-result sr1">Warning</div></div></div>
+        <div class="strike-row"><div class="strike-num s2">2</div><div><div class="strike-label">Second Strike</div><div class="strike-result sr2">Suspension</div></div></div>
+        <div class="strike-row"><div class="strike-num s3">3</div><div><div class="strike-label">Third Strike</div><div class="strike-result sr3">Terminated</div></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Notes</div>
+        <ul class="info-list">
+          <li>Accumulation of strikes is tracked individually per officer.</li>
+          <li>Officers may be assigned ride-alongs with higher-ranking officers.</li>
+          <li>Strikes reset after <strong>2 months</strong> of clean conduct.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2: Promotions -->
+    <div class="section">
+      <div class="section-title">Promotions & Training</div>
+      <div class="section-divider"></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">Promotion Requirements</div>
+          <ul class="info-list">
+            <li>No promotions within <strong>1 week</strong> of a previous promotion.</li>
+            <li><strong>75% vote</strong> required from Head Administration and High Command.</li>
+            <li>Officer must be active and on duty.</li>
+            <li>Promotions and demotions occur as needed.</li>
+            <li>No strikes within the same <strong>2 weeks</strong> from promotion date.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Training</div>
+          <ul class="info-list">
+            <li>Cadet training, ride-alongs, and scenario-based exercises.</li>
+            <li>Specialized training for subdivisions: SWAT, Air Support, Gang unit.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3: Operations -->
+    <div class="section">
+      <div class="section-title">Operational Guidelines</div>
+      <div class="section-divider"></div>
+
+      <div class="card">
+        <div class="card-title">Standard Loadout & Equipment</div>
+        <ul class="info-list">
+          <li>Duty belt, sidearm, patrol vehicle, taser, cuffs.</li>
+          <li>Armory access for vehicles and equipment.</li>
+          <li>Care for assigned vehicles is mandatory. All engine work is at <strong>your cost</strong>.</li>
+          <li>Body work is fronted by the department if damage is not excessive (you will be reimbursed).</li>
+          <li>PD repair station is to be used only when no mechanic is on duty.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Vehicle Operation & Pursuits</div>
+        <div class="code-grid">
+          <div class="code-card"><div class="code-num">1</div><div class="code-name">Code 1</div><div class="code-desc">Routine driving, no lights or siren</div></div>
+          <div class="code-card"><div class="code-num">2</div><div class="code-name">Code 2</div><div class="code-desc">Lights on, occasional siren use</div></div>
+          <div class="code-card"><div class="code-num">3</div><div class="code-name">Code 3</div><div class="code-desc">Full lights and sirens, emergency response</div></div>
+        </div>
+        <ul class="info-list" style="margin-top:12px;">
+          <li>PIT maneuver allowed under <strong>80 MPH</strong>.</li>
+          <li>Pursuit termination allowed by any officer with <strong>supervisor approval</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Traffic Stops & Scene Management</div>
+        <ul class="info-list">
+          <li>Use Code 2 lights, maintain cover, and approach safely.</li>
+          <li>Identify yourself, verify license, and enforce applicable penalties.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Use of Force — Escalation Continuum</div>
+        <div class="uof-step"><div class="uof-num">1</div><div><div class="uof-title">Show Presence</div><div class="uof-desc">Appearing confident and in control of the situation.</div></div></div>
+        <div class="uof-step"><div class="uof-num">2</div><div><div class="uof-title">Verbal Commands</div><div class="uof-desc">Using the tone of your voice to assert authority and discourage resistance.</div></div></div>
+        <div class="uof-step"><div class="uof-num">3</div><div><div class="uof-title">Controlling Force</div><div class="uof-desc">Laying hands on someone in a non-combative manner (e.g., pushing an uncooperative individual aside).</div></div></div>
+        <div class="uof-step"><div class="uof-num">4</div><div><div class="uof-title">Impact Force</div><div class="uof-desc">Use of a police baton or flashlight to disarm or subdue. Only permitted if the suspect employs the same level of force.</div></div></div>
+        <div class="uof-step"><div class="uof-num">5</div><div><div class="uof-title">Deadly Force</div><div class="uof-desc">Authorized only if someone is attempting to inflict great bodily harm against you or a person in your immediate presence. The escalation continuum is mandatory — deadly force requires an immediate threat.</div></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Communications & RTO</div>
+        <ul class="info-list">
+          <li>Keep all transmissions concise.</li>
+          <li>Wait <strong>3 seconds</strong> between transmissions.</li>
+          <li>Signal 100 for high-priority incidents.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4: Special Situations -->
+    <div class="section">
+      <div class="section-title">Specialized Situations</div>
+      <div class="section-divider"></div>
+
+      <div class="card">
+        <div class="card-title">Hostage Negotiation</div>
+        <ul class="info-list">
+          <li>The <strong>first officer on scene</strong> takes command (may be overridden by an HC officer).</li>
+          <li>No weapons or vehicles given to hostage takers. Only patrol cars may be offered — no helicopters, moto units, or marine units.</li>
+          <li>Proof of life is required before negotiations advance.</li>
+          <li>Breaching only permitted with <strong>HC officer approval</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Domestic Violence Response</div>
+        <ul class="info-list">
+          <li>Separate all parties immediately.</li>
+          <li>Collect statements from all sides.</li>
+          <li>Ensure proof before making an arrest.</li>
+          <li>Ask if the victim wishes to press charges.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">High-Risk Pursuits</div>
+        <ul class="info-list">
+          <li>Match force with force.</li>
+          <li>Air Support (Air-1) assists if a pilot is available.</li>
+          <li>Scene command (HC) approval required for any breach.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5: Patrol & Codes -->
+    <div class="section">
+      <div class="section-title">Patrol Operations & Codes</div>
+      <div class="section-divider"></div>
+
+      <div class="card">
+        <div class="card-title">Emergency Response Codes</div>
+        <div class="code-grid">
+          <div class="code-card"><div class="code-num">1</div><div class="code-name">Code 1</div><div class="code-desc">Low-priority response</div></div>
+          <div class="code-card"><div class="code-num">2</div><div class="code-name">Code 2</div><div class="code-desc">Lights on, limited siren</div></div>
+          <div class="code-card"><div class="code-num">3</div><div class="code-name">Code 3</div><div class="code-desc">Full emergency response</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Unit Response Limits</div>
+        <ul class="info-list">
+          <li><span class="pill pill-gold">Traffic Stop</span> Max <strong>2 vehicles</strong>. Code 5 stops: no more than <strong>4 units</strong>.</li>
+          <li><span class="pill pill-red">Bank Robbery</span> Varies by location. Air-1 authorized if a pilot is available.</li>
+          <li><span class="pill pill-blue">Shots Fired</span> All units respond. Air-1 deploys if available.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6: Legal -->
+    <div class="section">
+      <div class="section-title">Legal References</div>
+      <div class="section-divider"></div>
+
+      <div class="card">
+        <div class="card-title">Key Case Law</div>
+        <div class="rank-row"><div><div class="rank-name">Tennessee v. Garner</div><div class="rank-desc">Deadly force may only be used if the suspect poses an immediate risk of serious harm.</div></div></div>
+        <div class="rank-row"><div><div class="rank-name">Terry v. Ohio</div><div class="rank-desc">Officers may stop and frisk an individual based on reasonable suspicion.</div></div></div>
+        <div class="rank-row"><div><div class="rank-name">Miranda v. Arizona</div><div class="rank-desc">Suspects have the right to remain silent and the right to an attorney.</div></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Constitutional Amendments</div>
+        <div class="amend-row"><div class="amend-num">1st</div><div class="amend-text">Freedom of speech, religion, and assembly.</div></div>
+        <div class="amend-row"><div class="amend-num">2nd</div><div class="amend-text">Right to bear arms.</div></div>
+        <div class="amend-row"><div class="amend-num">4th</div><div class="amend-text">Protection against unreasonable search and seizure.</div></div>
+        <div class="amend-row"><div class="amend-num">5th</div><div class="amend-text">Due process and protection against self-incrimination.</div></div>
+        <div class="amend-row"><div class="amend-num">6th</div><div class="amend-text">Right to a speedy trial.</div></div>
+        <div class="amend-row"><div class="amend-num">7th</div><div class="amend-text">Right to a jury trial.</div></div>
+      </div>
+    </div>
+
+    <!-- 7: Conduct -->
+    <div class="section">
+      <div class="section-title">Professional Conduct & Ethics</div>
+      <div class="section-divider"></div>
+      <div class="card">
+        <div class="card-title">Standards</div>
+        <ul class="info-list">
+          <li>Maintain respectful communication at all times.</li>
+          <li>Avoid abuse of rank or authority in any form.</li>
+          <li>Uphold integrity both on and off duty.</li>
+          <li>Public safety is the top priority of every officer.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 8: Subdivisions -->
+    <div class="section">
+      <div class="section-title">Subdivisions Overview</div>
+      <div class="section-divider"></div>
+      <div class="subdiv-card"><div class="subdiv-icon">🔥</div><div><div class="subdiv-name">Heat Unit</div><div class="subdiv-desc">Speed enforcement, high-speed chases, and Code 5 stops.</div></div></div>
+      <div class="subdiv-card"><div class="subdiv-icon">🛡️</div><div><div class="subdiv-name">SWAT</div><div class="subdiv-desc">High-risk operations, hostage rescue, and armed interventions.</div></div></div>
+      <div class="subdiv-card"><div class="subdiv-icon">🚁</div><div><div class="subdiv-name">Air Support — Air-1</div><div class="subdiv-desc">Aerial surveillance and pursuit assistance.</div></div></div>
+      <div class="subdiv-card"><div class="subdiv-icon">🔍</div><div><div class="subdiv-name">Crime Investigation Department (CID)</div><div class="subdiv-desc">Crime scene management and evidence collection.</div></div></div>
+      <div class="subdiv-card"><div class="subdiv-icon">🕵️</div><div><div class="subdiv-name">Gang Narcotics Division (GND)</div><div class="subdiv-desc">Gang-related crime scene investigation and narcotics enforcement.</div></div></div>
+    </div>
+
+    <!-- 9: Appendices -->
+    <div class="section">
+      <div class="section-title">Appendices</div>
+      <div class="section-divider"></div>
+
+      <div class="card">
+        <div class="card-title">Firearm Classes</div>
+        <div class="fc-row"><div class="fc-class">C1</div><div><div class="fc-name">Pistols</div></div></div>
+        <div class="fc-row"><div class="fc-class">C2</div><div><div class="fc-name">Carbines</div></div></div>
+        <div class="fc-row"><div class="fc-class">C3</div><div><div class="fc-name">Snipers / Heavy Weapons</div><div class="fc-note">SWAT only</div></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Vehicle Guidelines</div>
+        <ul class="info-list">
+          <li>Assigned vehicle: <strong>Bravado STX Cruiser</strong>.</li>
+          <li>Refuel and repair before storing your vehicle.</li>
+          <li>Maximum <strong>2 officers</strong> per patrol vehicle, unless cleared with a shift supervisor.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Report Writing</div>
+        <ul class="info-list">
+          <li><strong>Primary officer:</strong> responsible for the scene report.</li>
+          <li><strong>Arresting officer:</strong> handles transport, booking, and processing.</li>
+          <li><strong>Unauthorized firearm discharge:</strong> must be reported immediately to the highest-ranking officer on scene.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showTab(i) {
+  document.querySelectorAll('.tab-btn').forEach((b,j) => b.classList.toggle('active', j===i));
+  document.querySelectorAll('.section').forEach((s,j) => s.classList.toggle('active', j===i));
+}
+</script>
