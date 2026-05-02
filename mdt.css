@@ -1,0 +1,521 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --gold: #c9a84c;
+  --gold-dim: #c9a84c44;
+  --bg: #0a0e1a;
+  --bg-card: #131828;
+  --bg-deep: #0d1120;
+  --border: #2a3050;
+  --border-inner: #1e2540;
+  --text: #e8eaf0;
+  --muted: #8892a4;
+  --accent-text: #c0c8d8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ─── HEADER ─────────────────────────────────────── */
+
+header {
+  background: var(--bg-deep);
+  border-bottom: 2px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 24px 0;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.badge-svg {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.dept-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.dept-sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.version {
+  margin-left: auto;
+  text-align: right;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ─── TAB BAR ────────────────────────────────────── */
+
+.tab-bar {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tab-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab-btn:hover {
+  color: var(--gold);
+}
+
+.tab-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ─── MAIN CONTENT ───────────────────────────────── */
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.section-divider {
+  width: 52px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 28px;
+}
+
+/* ─── GRID LAYOUTS ───────────────────────────────── */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 700px) {
+  .two-col,
+  .three-col {
+    grid-template-columns: 1fr;
+  }
+
+  .dept-title {
+    font-size: 20px;
+  }
+}
+
+/* ─── CARD ───────────────────────────────────────── */
+
+.card {
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.card-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+/* ─── RANK ROWS ──────────────────────────────────── */
+
+.rank-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--border-inner);
+}
+
+.rank-row:last-child {
+  border-bottom: none;
+}
+
+.rank-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--gold);
+  opacity: 0.45;
+  line-height: 1;
+  min-width: 24px;
+}
+
+.rank-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.rank-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ─── STRIKE ROWS ────────────────────────────────── */
+
+.strike-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--border-inner);
+}
+
+.strike-row:last-child {
+  border-bottom: none;
+}
+
+.strike-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.s1 { background: #1a2a10; color: #7ec850; }
+.s2 { background: #2a1f08; color: #e9a030; }
+.s3 { background: #2a0f0f; color: #e04a4a; }
+
+.strike-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.strike-result {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.sr1 { color: #7ec850; }
+.sr2 { color: #e9a030; }
+.sr3 { color: #e04a4a; }
+
+/* ─── CODE CARDS ─────────────────────────────────── */
+
+.code-card {
+  background: var(--bg-deep);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+}
+
+.code-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.code-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 5px 0 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.code-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ─── USE OF FORCE ───────────────────────────────── */
+
+.uof-step {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--border-inner);
+  align-items: flex-start;
+}
+
+.uof-step:last-child {
+  border-bottom: none;
+}
+
+.uof-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #1a1f35;
+  border: 0.5px solid var(--gold-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.uof-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.uof-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ─── INFO LIST ──────────────────────────────────── */
+
+.info-list {
+  list-style: none;
+}
+
+.info-list li {
+  font-size: 13px;
+  color: var(--accent-text);
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--border-inner);
+  line-height: 1.6;
+  display: flex;
+  gap: 10px;
+}
+
+.info-list li:last-child {
+  border-bottom: none;
+}
+
+.info-list li::before {
+  content: '›';
+  color: var(--gold);
+  font-size: 17px;
+  flex-shrink: 0;
+  margin-top: -1px;
+}
+
+.info-list li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ─── AMENDMENTS ─────────────────────────────────── */
+
+.amend-row {
+  display: flex;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--border-inner);
+  align-items: baseline;
+}
+
+.amend-row:last-child {
+  border-bottom: none;
+}
+
+.amend-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--gold);
+  min-width: 32px;
+}
+
+.amend-text {
+  font-size: 13px;
+  color: var(--accent-text);
+  line-height: 1.6;
+}
+
+/* ─── SUBDIVISIONS ───────────────────────────────── */
+
+.subdiv-card {
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.subdiv-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.subdiv-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.subdiv-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ─── FIREARM CLASSES ────────────────────────────── */
+
+.fc-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--border-inner);
+}
+
+.fc-row:last-child {
+  border-bottom: none;
+}
+
+.fc-class {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--gold);
+  min-width: 40px;
+}
+
+.fc-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.fc-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ─── PILLS ──────────────────────────────────────── */
+
+.pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.pill-gold { background: #2a2010; color: var(--gold);  border: 0.5px solid var(--gold-dim); }
+.pill-blue { background: #0f1e30; color: #5ba3e0; border: 0.5px solid #5ba3e055; }
+.pill-red  { background: #2a0f0f; color: #e04a4a; border: 0.5px solid #e04a4a55; }
+
+/* ─── FOOTER ─────────────────────────────────────── */
+
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 0.5px solid var(--border);
+  letter-spacing: 0.5px;
+}
